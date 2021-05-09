@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Shirts Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>T-Shirts Shop</h1>
+    </div>
+    <a href="http://portfolio-steven-oster.fr/">Retour Au Portfolio</a> <br/>
+    <a href="">Code Source</a>
+
+    <div class="app" id="app">
+        <router-link to="/">
+        </router-link>
+
+        <router-view></router-view>
+    </div>
+
+    <script type="text/x-template" id="home">
+        <div>
+            <div class="research_result">
+                <div class="research">
+                    <p>Rechercher :</p>
+                    <input v-model="searchKey" type="search" placeholder="Rehercher.." autocomplete="off">
+                </div>
+
+                <div v-if="searchKey && filteredList.length > 0" class="result">
+                    <p>{{ filteredList.length }} résultat<span v-if="filteredList.length > 1">s</span></p>
+                </div>
+
+                <div v-if="searchKey && filteredList.length == 0" class="result">
+                    <p><span>Aucun résultat pour '</span>{{ searchKey }}<span>'</span></p>
+                </div>
+            </div>
+            <div class="items">
+                <div v-if="cart.length > 0" class="cart">
+                    <h1>Panier:</h1>
+
+                    <div v-for="product in cart" class="cart_products">
+                        <div class="product">
+                            <img v-bind:src="product.img" alt="T-Shirt">
+                            <div class="name_price">
+                                <p>{{ product.name }}</p>
+                                <p>{{ product.price }} €</p>
+                            </div>
+                            <p>Quantité : {{ product.quantity }}
+                                <button v-on:click="quantityMinusOne(product, product.id)">
+                                <p>&nbsp - &nbsp</p>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                    <p>Prix Total : {{ cartTotalAmount }}€</p>
+                </div>
+
+                <div class="products">
+                    <div v-for="product in filteredList" class="product">
+                        <img v-bind:src="product.img" alt="T-Shirt">
+                        <div class="name_price">
+                            <p>{{ product.name }}</p>
+                            <p>{{ product.price }}€</p>
+                        </div>
+                        <button v-on:click="addToCart(product)">
+                            <p>ajouter au panier</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script src="js/vue.js" type="text/javascript"></script>
+</body>
+
+</html>
